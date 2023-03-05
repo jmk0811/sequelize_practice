@@ -7,10 +7,10 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getDataAPIMethod().then((res) => {
-        console.log(res);
-        setHost(res.host)
-      });
+      // getDataAPIMethod().then((res) => {
+      //   console.log(res);
+      //   setHost(res.host)
+      // });
     }, 1000);
 
     return () => {

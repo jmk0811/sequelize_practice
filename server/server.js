@@ -1,6 +1,6 @@
 const express = require('express');
 const server = express();
-const port = 3001;
+const port = 3003;
 
 server.use((req, res, next) => {
     req.requestTime = Date.now();
@@ -10,25 +10,14 @@ server.use((req, res, next) => {
 
 server.listen(port, () => { console.log('server started!')});
 
-const { Sequelize } = require("sequelize");
+const { sequelize } = require('./models/index');
 
-const sequelize = new Sequelize("snmp", "root", "root1234", {
-    host: "localhost",
-    dialect: "mysql"
-});
+sequelize
+    .sync()
+    .then(() => console.log('connected database'))
+    .catch(err => console.error('occurred error in database connecting', err));
 
-sequelize.authenticate().then(() => {
-    console.log("Connection successful!");
-}).catch((err) => {
-    console.log("Error connecting to database.");
-    console.log(err);
-});
+const hostRoutes = require('./routes/host')
 
-/*
- *
- */
 
-server.get('/api/test', (req, res) => {
-    const data = {host: 123}
-    res.send(data)
-});
+server.use('/host', hostRoutes);
