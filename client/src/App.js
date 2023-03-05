@@ -1,12 +1,16 @@
 import './App.css';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import {getDataAPIMethod} from "./api/api";
 
 function App() {
-  const [host, setHost] = useState(0);
+  const [host, setHost] = useState("a");
 
   useEffect(() => {
     const interval = setInterval(() => {
-      //TODO: get from db, update host
+      getDataAPIMethod().then((res) => {
+        console.log(res);
+        setHost(res.host)
+      });
     }, 1000);
 
     return () => {

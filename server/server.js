@@ -2,6 +2,14 @@ const express = require('express');
 const server = express();
 const port = 3001;
 
+server.use((req, res, next) => {
+    req.requestTime = Date.now();
+    console.log(req.method, req.path);
+    next();
+});
+
+server.listen(port, () => { console.log('server started!')});
+
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize("snmp", "root", "root1234", {
@@ -20,10 +28,7 @@ sequelize.authenticate().then(() => {
  *
  */
 
-server.get('/', (req, res) => {
-    res.send('test')
-});
-
-server.listen(port, () => {
-    console.log(`Listening on port ${port}`)
+server.get('/api/test', (req, res) => {
+    const data = {host: 123}
+    res.send(data)
 });
