@@ -12,5 +12,8 @@ module.exports = (sequelize, DataTypes) => {
                 comment: 'host ip address'
             },
         },
+        // {
+        //     timestamps: false
+        // }
     )
 }

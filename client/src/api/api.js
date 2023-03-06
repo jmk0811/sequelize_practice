@@ -5,8 +5,17 @@ const defaultHeaders = {
 }
 
 export const getDataAPIMethod = () => {
-    return fetch(`/api/test`, {
+    return fetch(`/hosts`, {
         ...defaultHeaders,
+    }).then(checkStatus)
+        .then(parseJSON);
+}
+
+export const postDataAPIMethod = (id, data) => {
+    return fetch(`/hosts/${id}`, {
+        ...defaultHeaders,
+        method: 'POST',
+        body: JSON.stringify(data),
     }).then(checkStatus)
         .then(parseJSON);
 }
